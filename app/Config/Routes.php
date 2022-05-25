@@ -58,6 +58,10 @@ $routes->group('cespidh', function ($routes){
 	
 	$routes->get('edit/document/(:segment)', 'CiudadanoController::view_edit/$1');
 	$routes->post('edit/document', 'CiudadanoController::edit_document');
+
+	//Entidad
+	$routes->get('entidad', 'EntidadController::index');
+	$routes->post('search', 'EntidadController::filtro');
 });
 
 /**
