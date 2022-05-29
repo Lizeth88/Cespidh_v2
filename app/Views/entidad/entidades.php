@@ -1,7 +1,6 @@
 <?= view('layouts/header') ?>
 <!-- <?= view('layouts/navbar_vertical') ?> -->
 
-<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/pages/data-tables.css">
 
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/vendors/flag-icon/css/flag-icon.min.css">
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/vendors/data-tables/css/jquery.dataTables.min.css">
@@ -11,6 +10,9 @@
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/pages/form-wizard.css">
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/css/table.css">
 
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/pages/data-tables.css">
+
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/pages/data-tables.css">
 
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/pages/page-faq.css">
 
@@ -40,12 +42,9 @@
         </div>
       </div>      
     </div>
-    <div class="col s12">
-      <div class="container">        
-        <div class="section section-data-tables">
-          <!-- Page Length Options -->
-          <div class="row">
-            <?php foreach($estados as $estado): ?>
+    <div class="row">
+      
+    <?php foreach($estados as $estado): ?>
             <div class="col s12 m6 l4">
               <div class="card padding-4 animate fadeLeft">
                   <div class="row">                  
@@ -54,12 +53,18 @@
                           <p class="no-margin"><?= $estado->nombre ?></p>
                       </div>
                       <div class="col s7 m7 right-align">
-                          <i class="material-icons background-round mt-5 mb-5  blue lighten-4 blue-text indicadores"><?= $estado->icono ?></i>
+                          <i class="material-icons background-round mt-5 mb-5  blue lighten-4 blue-text indicadores"><?= !empty($estado->icono) ? $estado->icono : 'adjust' ?></i>
                       </div>                    
                   </div>                
               </div>
             </div>      
             <?php endforeach ?>
+    </div>
+    <div class="col s12">
+      <div class="container">        
+        <div class="section section-data-tables">
+          <!-- Page Length Options -->
+          <div class="row">
             <div class="col s12">
               <div class="container">
                 <div class="section section-data-tables">
@@ -77,7 +82,7 @@
                                     <div id="documentos" class="col s12">
                                     <div id="new" class="col s12">
                                       <div class="section" id="faq">
-                                        <div class="faq row">
+                                        <div class="faq">
                                           <div class="col s12 l12">
                                               <ul class="collapsible categories-collapsible">
                                                   <li class="">
@@ -87,57 +92,56 @@
                                                       </div>
                                                       <div class="collapsible-body">
                                                         <div class="row">
-                                                          <form class="col s12" action="search" method="post">
+                                                          <form class="col s12" action="<?= base_url(['cespidh', 'entidad', 'search']) ?>" method="post" autocomplete="off">
                                                             <div class="row">
                                                               <div class="col s12">
                                                                 <div class="row">
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-name" class="autocomplete-name" name="nombre">
+                                                                    <input type="text" id="autocomplete-name" class="autocomplete-name" name="nombre" <?= !empty($data['nombre']) ? 'value="'.$data['nombre'].'"' :'' ?>>
                                                                     <label for="autocomplete-name">Nombre</label>
                                                                   </div>
 
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-id" class="autocomplete-id">
+                                                                    <input type="text" id="autocomplete-id" class="autocomplete-id" name="cedula" <?= !empty($data['cedula']) ? 'value="'.$data['cedula'].'"' :'' ?>>
                                                                     <label for="autocomplete-id">Cedula</label>
                                                                   </div>
 
                                                                   <div class="input-field col s12 l3">
-                                                                    <select>
+                                                                    <select name="tipo_documento">
                                                                       <option value="">Seleccion una opción</option>
-                                                                      <option value="1">Derecho de petición</option>
-                                                                      <option value="2">Acción de tutela</option>
-                                                                      <option value="3">Denuncia general</option>
-                                                                      <option value="4">Denuncia corrupción</option>
+                                                                      <?php foreach($tipo_documento as $tipo): ?>
+                                                                        <option <?= !empty($data['tipo_documento']) && $data['tipo_documento'] == $tipo->id_tipo  ? 'selected' :'' ?> value="<?= $tipo->id_tipo ?>"><?= $tipo->descripcion ?></option>
+                                                                      <?php endforeach ?>
                                                                     </select>
                                                                     <label>Tipo de documento</label>  
                                                                   </div>
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-entidad" class="autocomplete-entidad">
+                                                                    <input type="text" id="autocomplete-entidad" class="autocomplete-entidad" name="entidad">
                                                                     <label for="autocomplete-entidad">Entidad</label>
                                                                   </div>
                                                                 </div>
 
                                                                 <div class="row">
                                                                   <div class="input-field col s12 l4">
-                                                                    <input type="text" id="autocomplete-colaborador" class="autocomplete-colaborador">
+                                                                    <input type="text" id="autocomplete-colaborador" class="autocomplete-colaborador" name="colaborador">
                                                                     <label for="autocomplete-colaborador">Colaborador</label>                                                    
                                                                   </div>
                                                                   <div class="input-field col s12 l4">
-                                                                    <input type="text" class="datepicker" id="date-inicial">
+                                                                    <input type="text" class="datepicker" id="date-inicial" name="date_init" <?= !empty($data['date_init']) ? 'value="'.$data['date_init'].'"' :'' ?>>
                                                                     <label for="date-inicial">Fecha inicial</label>
                                                                   </div>
                                                                   <div class="input-field col s12 l4">
-                                                                    <input type="text" class="datepicker" id="date-final">
+                                                                    <input type="text" class="datepicker" id="date-final" name="date_finish" <?= !empty($data['date_finish']) ? 'value="'.$data['date_finish'].'"' :'' ?>>
                                                                     <label for="date-final">Fecha final</label>
                                                                   </div>
                                                                 </div>
                                                               </div>
                                                             </div>
                                                             <div class="div-center pb-1">
-                                                              <button class="btn waves-effect waves-light blue" type="submit" name="action">Filtrar
+                                                              <button class="btn waves-effect waves-light blue" type="submit">Filtrar
                                                                 <i class="material-icons right">send</i>
                                                               </button>
-                                                              <button class="btn waves-effect waves-light red lighten-1" type="submit" name="action">Resetear
+                                                              <button class="btn waves-effect waves-light red lighten-1" type="reset">Resetear
                                                                 <i class="material-icons right">close</i>
                                                               </button>
                                                             </div>
@@ -158,11 +162,11 @@
                                           <!-- <li class="tab col m3"><a href="#test2">Rechazadas</a></li>
                                           <li class="tab col m3"><a href="#test3">Finalizado</a></li> -->
                                           <?php endforeach ?>
-                                          <li class="tab col m3"><a href="#test4">Todas</a></li>
+                                          <li class="tab col m3"><a href="#todo">Todas</a></li>
                                         </ul>
                                         <?php foreach($estados as $key => $estado): ?>  
                                       <div id="estado_<?= ($key+1) ?>" class="col s12">
-                                      <table id="table-rechazada" class="display">
+                                      <table id="" class="display table-documento">
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
@@ -173,7 +177,7 @@
                                                 <th>Entidad</th>
                                                 <th>Colaborador</th>
                                                 <th>Fecha</th>
-                                                <th>Documento</th>
+                                                <th>Acciones</th>
                                                 <!-- <th>Acciones</th> -->
                                             </tr>
                                         </thead>
@@ -193,12 +197,34 @@
                                                 ?>
                                                 <td><?= $document->help == 'off' ? 'No necesita': 'No asignado' ?></td>
                                                 <td><?= $document->fecha ?></td>
-                                                <td>
-                                                  <a href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank">Ver</a>
-                                                  <a href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" target="_blank">Editar</a>
+                                                <td class="center-align">
+                                                  <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" target="_blank" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
+                                                  <!-- Dropdown Trigger -->
+                                                  <a class="waves-effect waves-block waves-light detail-button" href="javascript:void(0);" data-coverTrigger="true" data-target='detail_<?= $document->id_documento ?>'><i class="material-icons grey-text">more_vert</i></a>
+                                                  <!-- Dropdown Structure -->
+                                                  <ul class="dropdown-content" id="detail_<?= $document->id_documento ?>"> 
+                                                    <li>
+                                                      <a class="blue-text text-darken-1" href="<?= base_url(['cespidh', 'historial', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons">history</i> Historial</a>
+                                                    </li>
+                                                    <li>
+                                                      <a class="blue-text text-darken-1" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons">file_download</i> Descargar</a>
+                                                    </li>
+                                                    <li>
+                                                      <a class="blue-text text-darken-1" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons">delete</i> Eliminar</a>
+                                                    </li>
+                                                    <li>
+                                                      <a class="blue-text text-darken-1" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons">done</i> Publicar</a>
+                                                    </li>                                                      
+                                                  </ul>
                                                 </td>
+                                                
+                                                <!-- <td>                                                  
+                                                  <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
+                                                  <a class="modal-trigger" href="#modal2"><i class="material-icons grey-text">more_vert</i></a>
+                                                  <a href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank">Ver</a>                                                  
+                                                </td> -->
                                                 <!-- <td class="center-align">
-                                                  <a class="tooltipped" href="<?= $base_url ?>/table-edit.php" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
+                                                  <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
                                                   <a class="modal-trigger" href="#modal2"><i class="material-icons grey-text">more_vert</i></a>
                                                 </td> -->
                                             </tr>
@@ -216,14 +242,14 @@
                                                 <th>Entidad</th>
                                                 <th>Colaborador</th>
                                                 <th>Fecha</th>
-                                                <!-- <th>Acciones</th> -->
+                                                <th>Acciones</th>
                                             </tr>
                                         </tfoot>
                                       </table>                                      
                                       </div>                                    
                                       <?php endforeach ?>
-                                      <div id="test4" class="col s12">
-                                      <table id="table-rechazada" class="display">
+                                      <div id="todo" class="col s12">
+                                      <table id="table-rechazada" class="display table-documento">
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
@@ -234,7 +260,7 @@
                                                 <th>Entidad</th>
                                                 <th>Colaborador</th>
                                                 <th>Fecha</th>
-                                                <th>Documento</th>
+                                                <th>Acciones</th>
                                                 <!-- <th>Acciones</th> -->
                                             </tr>
                                         </thead>
@@ -253,12 +279,32 @@
                                                 ?>
                                                 <td><?= $document->help == 'off' ? 'No necesita': 'No asignado' ?></td>
                                                 <td><?= $document->fecha ?></td>
-                                                <td>
-                                                  <a href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank">Ver</a>
-                                                  <a href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" target="_blank">Editar</a>
+                                                <td class="center-align">
+                                                  <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" target="_blank" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
+                                                  <a class="waves-effect waves-block waves-light detail-button" href="javascript:void(0);" data-coverTrigger="true" data-activates="detail_<?= $document->id_documento ?>" data-target='detail_<?= $document->id_documento ?>'><i class="material-icons grey-text">more_vert</i></a>
+                                                  <ul class="dropdown-content" id="detail_<?= $document->id_documento ?>"> 
+                                                    <li>
+                                                      <a class="blue-text text-darken-1" href="<?= base_url(['cespidh', 'historial', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left">history</i> Historial</a>
+                                                    </li>
+                                                    <li>
+                                                      <a class="blue-text text-darken-1" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left">file_download</i> Descargar</a>
+                                                    </li>
+                                                    <li>
+                                                      <a class="blue-text text-darken-1" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left">delete</i> Eliminar</a>
+                                                    </li>
+                                                    <li>
+                                                      <a class="blue-text text-darken-1" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left">done</i> Publicar</a>
+                                                    </li>                                                      
+                                                  </ul>
                                                 </td>
+                                                  <!-- <a class="modal-trigger" href="#modal2"><i class="material-icons grey-text">more_vert</i></a> -->
+                                                <!-- <td>                                                  
+                                                  <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
+                                                  <a class="modal-trigger" href="#modal2"><i class="material-icons grey-text">more_vert</i></a>                                                  
+                                                  <a href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank">Ver</a>                                                  
+                                                </td> -->
                                                 <!-- <td class="center-align">
-                                                  <a class="tooltipped" href="<?= $base_url ?>/table-edit.php" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
+                                                  <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
                                                   <a class="modal-trigger" href="#modal2"><i class="material-icons grey-text">more_vert</i></a>
                                                 </td> -->
                                             </tr>
@@ -275,7 +321,7 @@
                                                 <th>Entidad</th>
                                                 <th>Colaborador</th>
                                                 <th>Fecha</th>
-                                                <!-- <th>Acciones</th> -->
+                                                <th>Acciones</th>
                                             </tr>
                                         </tfoot>
                                       </table>                                      
@@ -637,12 +683,84 @@
   </div>
 </div>
 
+<!-- Modal Structure -->
+<!-- <div id="modal2" class="modal option modal-fixed-footer">
+    <div class="modal-content options">
+      <h4>Mas opciones</h4>
+      <div class="mb-3 center">
+        <p>
+        <a href="<?= base_url(['cespidh', 'historial', 'document']) ?>" 
+            class="mb-12 waves-effect waves-light btn blue lighten-5 blue-text"><i class="material-icons left">history</i> Historial</a>
+        </p>
+        <p>
+          <a class="mb-12 waves-effect waves-light btn blue lighten-5 blue-text" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>"><i class="material-icons left">file_download</i> Descargar</a>
+        </p>
+        <p>
+          <a class="mb-12 waves-effect waves-light btn blue lighten-5 blue-text" onclick="delete_document(1)"><i class="material-icons left">delete</i> Eliminar</a>
+        </p>
+        <p>
+          <a class="mb-12 waves-effect waves-light btn blue lighten-5 blue-text"><i class="material-icons left">done</i> Publicar</a>
+        </p>
+      </div>
+    </div>
+  </div> -->
 
 
+<!-- BEGIN VENDOR JS-->
+<script src="<?= base_url() ?>/assets/js/vendors.min.js"></script>
+<!-- BEGIN VENDOR JS-->
+<!-- BEGIN PAGE VENDOR JS-->
+<script src="<?= base_url() ?>/assets/vendors/data-tables/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>/assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?= base_url() ?>/assets/vendors/data-tables/js/dataTables.select.min.js"></script>
+
+<script src="<?= base_url() ?>/assets/vendors/materialize-stepper/materialize-stepper.min.js"></script>
+<!-- END PAGE VENDOR JS-->
+<!-- BEGIN THEME  JS-->
+<script src="<?= base_url() ?>/assets/js/plugins.js"></script>
+<script src="<?= base_url() ?>/assets/js/search.js"></script>
+<script src="<?= base_url() ?>/assets/js/custom/custom-script.js"></script>
+<script src="<?= base_url() ?>/assets/js/scripts/data-tables.js"></script>
+
+    
+<script src="<?= base_url() ?>/assets/vendors/sweetalert/sweetalert.min.js"></script>
+    
+<script src="<?= base_url() ?>/assets/js/scripts/extra-components-sweetalert.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $('.tooltipped').tooltip();
+    $('.datepicker').datepicker();
+    $('.detail-button').dropdown();
+  });
+
+  function delete_document(id){
+    swal({
+      title: `¿Esta seguro de eliminar el Documento # ${id}?`,
+      icon: 'warning',
+      dangerMode: true,
+      buttons: {
+        cancel: 'No',
+        delete: 'Si'
+      }
+    }).then(function (willDelete) {
+      if (willDelete) {
+        swal(`El Documento # ${id}!`, 
+        {
+          icon: "success",
+        });
+      } else {
+        swal("Your imaginary file is safe", {
+          title: 'Cancelled',
+          icon: "error",
+        });
+      }
+    });
+  }
+  
 </script>
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="<?= base_url() ?>/assets/js/scripts/form-wizard.js"></script>
-
 
 <script src="<?= base_url() ?>/assets/vendors/formatter/jquery.formatter.min.js"></script>
 
@@ -652,4 +770,4 @@
     <!-- END PAGE LEVEL JS-->
   
 
-<?= view('layouts/footer') ?>
+<?= view('layouts/footer_libre') ?>
