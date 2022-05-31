@@ -18,8 +18,8 @@
           </div>
           <div class="col s12 m6 l6 right-align-md">
             <ol class="breadcrumbs mb-0">
-              <li class="breadcrumb-item"><a href="<?= $base_url ?>">Home</a></li>
-              <li class="breadcrumb-item"><a href="<?= $base_url ?>/table.php">Documentos</a></li>
+              <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?= base_url() ?>/table.php">Documentos</a></li>
               <li class="breadcrumb-item active">Detalle</li>
             </ol>
           </div>
@@ -45,12 +45,12 @@
                       </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($documents as $document): ?>
+                    <?php foreach($historiales as $historia): ?>
                       <tr>
-                        <td><?= $document->fecha ?></td>
-                        <td>William Bonilla</td>
-                        <td>Colaborador</td>
-                        <td>Corrección de los hechos</td>
+                        <td><?= $historia->created_at ?></td>
+                        <td><?= $historia->username ?></td>
+                        <td><?= $historia->name ?></td>
+                        <td><?= $historia->observation ?></td>
                       </tr> 
                     <?php endforeach ?>                     
                     </tbody>

@@ -9,6 +9,7 @@ use App\Models\Respuestas;
 use App\Models\Etnia;
 use App\Models\Genero;
 use App\Models\User;
+use App\Models\Work;
 use Config\Services;
 
 
@@ -478,7 +479,7 @@ class CiudadanoController extends BaseController
                 $mpdf = new \Mpdf\Mpdf([]);
                 $mpdf->WriteHTML($plantilla, \Mpdf\HTMLParserMode::HTML_BODY);
                 $this->response->setHeader('Content-Type', 'application/pdf');
-                $mpdf->Output('$name','D');
+                $mpdf->Output($name,'I');
                 return ;
             }else
                 return view('errors/html/plantilla');
@@ -827,8 +828,16 @@ class CiudadanoController extends BaseController
     public function historial($id){
         $userM = new User();
         $users = $userM->where(['role_id' => 4])->get()->GetResult();
+
+        $work = new Work();
+        $historial = $work->where(['documento_id_documento' => $id])
+            ->join('users', 'users.id = work.users_id')
+            ->join('roles', 'roles.id = users.role_id')
+            ->get()->GetResult();
+        //return var_dump($historial);
         return view('ciudadano/historial', [
-            'colaboradores' => $users
+            'colaboradores' => $users,
+            'historiales' => $historial
         ]);
     }
 
