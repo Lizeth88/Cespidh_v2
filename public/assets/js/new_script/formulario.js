@@ -139,3 +139,9 @@ function prueba_delete(boton, id) {
     var prueba = boton.parentNode.parentNode.parentNode.parentNode.parentNode;
     prueba.parentNode.removeChild(prueba);
 }
+
+
+function resetform(miForm) {
+    console.log("a ver");
+    $('#filtrado').trigger("reset");
+}

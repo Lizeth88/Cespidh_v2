@@ -91,12 +91,13 @@
                                                       </div>
                                                       <div class="collapsible-body">
                                                         <div class="row">
-                                                          <form class="col s12" action="<?= base_url(['cespidh', 'entidad', 'search']) ?>" method="post" autocomplete="off">
+                                                          <form class="col s12" id="filtrado" action="<?= base_url(['cespidh', 'entidad', 'search']) ?>" method="post" autocomplete="off">
                                                             <div class="row">
                                                               <div class="col s12">
                                                                 <div class="row">
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-name" class="autocomplete-name" name="nombre" <?= !empty($data['nombre']) ? 'value="'.$data['nombre'].'"' :'' ?>>
+                                                                    <input type="text" id="autocomplete-name" class="autocomplete-name" name="nombre" 
+                                                                        <?= !empty($data['nombre']) ? 'value="'.$data['nombre'].'"' :'' ?>>
                                                                     <label for="autocomplete-name">Nombre</label>
                                                                   </div>
 
@@ -137,12 +138,12 @@
                                                               </div>
                                                             </div>
                                                             <div class="div-center pb-1">
-                                                              <button class="btn waves-effect waves-light blue" type="submit">Filtrar
+                                                              <button id="filtroB" class="btn waves-effect waves-light blue" type="submit">Filtrar
                                                                 <i class="material-icons right">send</i>
                                                               </button>
-                                                              <button class="btn waves-effect waves-light red lighten-1" type="reset">Resetear
+                                                              <a class="btn waves-effect waves-light red lighten-1" onclick="resetform(filtrado)" href="<?= base_url(['cespidh', 'entidad']) ?>">Resetear
                                                                 <i class="material-icons right">close</i>
-                                                              </button>
+                                                              </a>
                                                             </div>
                                                           </form>
                                                         </div>
