@@ -116,15 +116,15 @@
                                                                     <label>Tipo de documento</label>  
                                                                   </div>
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-entidad" class="autocomplete-entidad" name="entidad">
-                                                                    <label for="autocomplete-entidad">Entidad</label>
+                                                                    <input type="text" id="autocomplete-sede" class="autocomplete-sede" name="sede">
+                                                                    <label for="autocomplete-sede">Sede</label>
                                                                   </div>
                                                                 </div>
 
                                                                 <div class="row">
                                                                   <div class="input-field col s12 l4">
-                                                                    <input type="text" id="autocomplete-colaborador" class="autocomplete-colaborador" name="colaborador">
-                                                                    <label for="autocomplete-colaborador">Colaborador</label>                                                    
+                                                                    <input type="text" id="autocomplete-usuario" class="autocomplete-usuario" name="usuario">
+                                                                    <label for="autocomplete-usuario">Usuario</label>                                                    
                                                                   </div>
                                                                   <div class="input-field col s12 l4">
                                                                     <input type="text" class="datepicker" id="date-inicial" name="date_init" <?= !empty($data['date_init']) ? 'value="'.$data['date_init'].'"' :'' ?>>
@@ -173,8 +173,8 @@
                                                       <th>Cedula</th>
                                                       <th>Tipo de Documento</th>
                                                       <th>Estado</th>
-                                                      <th>Entidad</th>
-                                                      <th>Colaborador</th>
+                                                      <th>Sede</th>
+                                                      <th>Usuario</th>
                                                       <th>Fecha</th>
                                                       <th>Acciones</th>
                                                       <!-- <th>Acciones</th> -->
@@ -183,13 +183,13 @@
                                               <tbody>
                                                 <?php foreach($documents as $document): ?>
                                                   <?php if($document->id_estado==$estado->id_estado): ?>
-                                                  <tr>
+                                                    <tr>
                                                       <td><?= $document->abreviacion.''.$document->id_documento ?></td>
                                                       <td><?= $document->name ?></td>
                                                       <td><?= $document->id ?></td>
                                                       <td><?= $document->descripcion ?></td>
                                                       <td><?= $document->nombre ?></td>
-                                                      <td><?= $document->entidad ?></td>
+                                                      <td><?= $document->sede_nombre ?></td>
                                                       <?php
                                                         // $colaborador = 'No necesita';
                                                         // if( $document->help)
@@ -240,8 +240,8 @@
                                                       <th>Cedula</th>
                                                       <th>Tipo de Documento</th>
                                                       <th>Estado</th>
-                                                      <th>Entidad</th>
-                                                      <th>Colaborador</th>
+                                                      <th>Sede</th>
+                                                      <th>Usuario</th>
                                                       <th>Fecha</th>
                                                       <th>Acciones</th>
                                                   </tr>
@@ -258,8 +258,8 @@
                                                       <th>Cedula</th>
                                                       <th>Tipo de Documento</th>
                                                       <th>Estado</th>
-                                                      <th>Entidad</th>
-                                                      <th>Colaborador</th>
+                                                      <th>Sede</th>
+                                                      <th>Usuario</th>
                                                       <th>Fecha</th>
                                                       <th>Acciones</th>
                                                       <!-- <th>Acciones</th> -->
@@ -273,7 +273,7 @@
                                                       <td><?= $document->id ?></td>
                                                       <td><?= $document->descripcion ?></td>
                                                       <td><?= $document->nombre ?></td>
-                                                      <td><?= $document->entidad ?></td>
+                                                      <td><?= $document->sede_nombre ?></td>
                                                       <?php
                                                         // $colaborador = 'No necesita';
                                                         // if( $document->help)
@@ -323,8 +323,8 @@
                                                       <th>Cedula</th>
                                                       <th>Tipo de Documento</th>
                                                       <th>Estado</th>
-                                                      <th>Entidad</th>
-                                                      <th>Colaborador</th>
+                                                      <th>Sede</th>
+                                                      <th>Usuario</th>
                                                       <th>Fecha</th>
                                                       <th>Acciones</th>
                                                   </tr>

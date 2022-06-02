@@ -41,10 +41,11 @@ class EntidadController extends BaseController
         $genero = $genero->orderBy('orden', 'ASC')->get()->getResult();
 
         $documentosM = new Documento();
-        $documentos = $documentosM
+        $documentos = $documentosM->select('users.*, documento_tipo.*, documento_estado.*, sede.nombre as sede_nombre')
             ->join('users', 'documento.users_id = users.id')
             ->join('documento_tipo', 'documento.id_tipo = documento_tipo.id_tipo')
             ->join('documento_estado', 'documento.id_estado = documento_estado.id_estado')
+            ->join('sede', 'documento.id_sede = sede.id_sede')
             ->orderBy('id_documento', 'DESC')
             ->get()->getResult();
         
@@ -57,7 +58,9 @@ class EntidadController extends BaseController
 
         $tiposDocumentosM = new TiposDocumento();
         $tipos_documento = $tiposDocumentosM->get()->getResult();
-        // return var_dump($tipos_documento);
+        
+        
+        ///return var_dump($documentos);
 
 
         return view('entidad/entidades' , [
@@ -94,7 +97,7 @@ class EntidadController extends BaseController
         if(!empty($nombre))
             $parcial = $parcial->like(['users.name' => $nombre]);
         if(!empty($cedula))
-            $parcial = $parcial->where(['documento.users_id' => $cedula]);
+            $parcial = $parcial->like(['documento.users_id' => $cedula]);
         if(!empty($type_document))
             $parcial = $parcial->where(['documento.id_tipo' => $type_document]);
         if(!empty($date_init))
@@ -120,9 +123,7 @@ class EntidadController extends BaseController
                     }
                 }
             }else unset($formularios[$key]);
-        }
-
-        
+        }   
         $etnia = $etnia->orderBy('orden', 'ASC')->get()->getResult();
         $genero = $genero->orderBy('orden', 'ASC')->get()->getResult();
         
@@ -138,7 +139,7 @@ class EntidadController extends BaseController
         $tipos_documento = $tiposDocumentosM->get()->getResult();
 
         $data = $parcial->get()->getResult();
-        // return var_dump($post['nombre']);
+        //return var_dump($post);
         return view('entidad/entidades' , [
             'formularios'=> $formularios,
             'etnias' => $etnia,
