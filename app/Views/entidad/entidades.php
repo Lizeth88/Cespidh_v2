@@ -141,7 +141,7 @@
                                                               <button id="filtroB" class="btn waves-effect waves-light blue" type="submit">Filtrar
                                                                 <i class="material-icons right">send</i>
                                                               </button>
-                                                              <a class="btn waves-effect waves-light red lighten-1" onclick="resetform(filtrado)" href="<?= base_url(['cespidh', 'entidad']) ?>">Resetear
+                                                              <a class="btn waves-effect waves-light red lighten-1" onclick="resetform('<?= base_url(['cespidh', 'entidad']) ?>')">Resetear
                                                                 <i class="material-icons right">close</i>
                                                               </a>
                                                             </div>

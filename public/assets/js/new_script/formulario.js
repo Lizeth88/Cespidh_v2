@@ -141,7 +141,8 @@ function prueba_delete(boton, id) {
 }
 
 
-function resetform(miForm) {
-    console.log("a ver");
+function resetform(pagina) {
+    console.log(pagina);
     $('#filtrado').trigger("reset");
+    window.location=pagina;
 }
