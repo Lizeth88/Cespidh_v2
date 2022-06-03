@@ -156,18 +156,18 @@
                                         <div class="col s12">                                        
                                           <ul class="tabs">
                                             <?php foreach($estados as $key => $estado): ?>
-                                              <li class="tab col m3"><a href="#estado_<?= ($key+1) ?>" class="<?= $key==0?'active':'' ?>"><?= $estado->nombre ?></a></li>
-                                              <!-- <li class="tab col m3"><a href="#test2">Rechazadas</a></li>
+                                              <li class="tab col m3"><a href="#estado_<?= ($key+1) ?>" class=""><?= $estado->nombre ?></a></li>
+                                              <!-- <li class="tab col m3"><a href="#test2">Rechazadas</a></li><?= $key==0 ?'active':'' ?>
                                               <li class="tab col m3"><a href="#test3">Finalizado</a></li> -->
                                             <?php endforeach ?>
-                                            <li class="tab col m3"><a href="#todo">Todas</a></li>
+                                            <li class="tab col m3"><a href="#todo" class="active">Todas</a></li>
                                           </ul>
                                           <?php foreach($estados as $key => $estado): ?>  
                                             <div id="estado_<?= ($key+1) ?>" class="col s12">
                                             <table id="" class="display table-documento">
                                               <thead>
                                                   <tr>
-                                                      <th>Id</th>
+                                                      <!-- <th>Id</th> -->
                                                       <th>Nombre</th>
                                                       <th>Cedula</th>
                                                       <th>Tipo de Documento</th>
@@ -183,7 +183,7 @@
                                                 <?php foreach($documents as $document): ?>
                                                   <?php if($document->id_estado==$estado->id_estado): ?>
                                                     <tr>
-                                                      <td><?= $document->abreviacion.''.$document->id_documento ?></td>
+                                                      <!-- <td><?= $document->abreviacion.''.$document->id_documento ?></td> -->
                                                       <td><?= $document->name ?></td>
                                                       <td><?= $document->id ?></td>
                                                       <td><?= $document->descripcion ?></td>
@@ -199,7 +199,7 @@
                                                         <div style="display: flex;">
                                                           <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" target="_blank" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
                                                           <!-- Dropdown Trigger -->
-                                                          <a class="waves-effect waves-block waves-light detail-button" href="javascript:void(0);" data-coverTrigger="true" data-target='detaile_<?= $document->id_documento ?>'><i class="material-icons grey-text">more_vert</i></a>
+                                                          <a class="waves-effect waves-block waves-light detail-button" href="javascript:void" data-coverTrigger="true" data-activates="detaile_<?= $document->id_documento ?>" data-target='detaile_<?= $document->id_documento ?>'><i class="material-icons grey-text">more_vert</i></a>
                                                           <!-- Dropdown Structure -->
                                                         </div>
                                                         <ul class="dropdown-content dros" style="width: max-content !important;" id="detaile_<?= $document->id_documento ?>"> 
@@ -216,8 +216,7 @@
                                                               <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">done</i>Publicar</a>
                                                             </li>                                                      
                                                           </ul>
-                                                      </td>
-                                                      
+                                                      </td>     
                                                       <!-- <td>                                                  
                                                         <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
                                                         <a class="modal-trigger" href="#modal2"><i class="material-icons grey-text">more_vert</i></a>
@@ -230,11 +229,10 @@
                                                   </tr>
                                                   <?php endif ?>
                                                 <?php endforeach ?>
-                                                  
                                               </tbody>
                                               <tfoot>
                                                   <tr>
-                                                      <th>Id</th>
+                                                      <!-- <th>Id</th> -->
                                                       <th>Nombre</th>
                                                       <th>Cedula</th>
                                                       <th>Tipo de Documento</th>
@@ -249,10 +247,9 @@
                                             </div>                                    
                                           <?php endforeach ?>
                                           <div id="todo" class="col s12">
-                                            <table id="table-rechazada" class="display table-documento">
+                                            <table id="" class="display table-documento">
                                               <thead>
                                                   <tr>
-                                                      <th>Id</th>
                                                       <th>Nombre</th>
                                                       <th>Cedula</th>
                                                       <th>Tipo de Documento</th>
@@ -267,7 +264,6 @@
                                               <tbody>
                                                 <?php foreach($documents as $document): ?>                                            
                                                   <tr>
-                                                      <td><?= $document->abreviacion.''.$document->id_documento ?></td>
                                                       <td><?= $document->name ?></td>
                                                       <td><?= $document->id ?></td>
                                                       <td><?= $document->descripcion ?></td>
@@ -282,7 +278,7 @@
                                                       <td class="center-align">
                                                         <div style="display: flex;">
                                                           <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" target="_blank" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
-                                                          <a class="waves-effect waves-block waves-light detail-button" href="javascript:void(0);" data-coverTrigger="true" data-activates="detail_<?= $document->id_documento ?>" data-target='detail_<?= $document->id_documento ?>'>
+                                                          <a class="waves-effect waves-block waves-light detail-button" href="javascript:void" data-coverTrigger="true" data-activates="detail_<?= $document->id_documento ?>" data-target='detail_<?= $document->id_documento ?>'>
                                                             <i class="material-icons grey-text">more_vert</i>
                                                           </a>
                                                           <ul class="dropdown-content dros" style="width: max-content !important;" id="detail_<?= $document->id_documento ?>"> 
@@ -317,7 +313,7 @@
                                               </tbody>
                                               <tfoot>
                                                   <tr>
-                                                      <th>Id</th>
+                                                      <!-- <th>Id</th> -->
                                                       <th>Nombre</th>
                                                       <th>Cedula</th>
                                                       <th>Tipo de Documento</th>
