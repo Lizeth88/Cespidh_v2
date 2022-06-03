@@ -41,7 +41,7 @@ class EntidadController extends BaseController
         $genero = $genero->orderBy('orden', 'ASC')->get()->getResult();
 
         $documentosM = new Documento();
-        $documentos = $documentosM->select('users.*, documento_tipo.*, documento_estado.*, sede.nombre as sede_nombre')
+        $documentos = $documentosM->select('documento.*, users.*, documento_tipo.*, documento_estado.*, sede.nombre as sede_nombre')
             ->join('users', 'documento.users_id = users.id')
             ->join('documento_tipo', 'documento.id_tipo = documento_tipo.id_tipo')
             ->join('documento_estado', 'documento.id_estado = documento_estado.id_estado')
@@ -60,7 +60,7 @@ class EntidadController extends BaseController
         $tipos_documento = $tiposDocumentosM->get()->getResult();
         
         
-        ///return var_dump($documentos);
+        //return var_dump($documentos);
 
 
         return view('entidad/entidades' , [
