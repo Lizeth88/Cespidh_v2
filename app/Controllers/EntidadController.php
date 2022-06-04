@@ -154,4 +154,19 @@ class EntidadController extends BaseController
             'data' => $post
         ]); 
     }
+
+    public function publicar($id){
+        $documento = new Documento();
+        $documento->where('id_documento', $id)
+                ->set(['id_estado'=>3])->update();
+
+        return redirect()->to(base_url(['cespidh', 'entidad']));
+    }
+    public function eliminar($id){
+        $documento = new Documento();
+        $documento->where('id_documento', $id)
+                ->set(['id_estado'=>4])->update();
+
+        return redirect()->to(base_url(['cespidh', 'entidad']));
+    }
 }
