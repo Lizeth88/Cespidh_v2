@@ -208,7 +208,10 @@
                                                               <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'historial', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">history</i>Historial</a>
                                                             </li>
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">file_download</i>Descargar</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 1]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">picture_as_pdf</i>Ver</a>
+                                                            </li>
+                                                            <li>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 2]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">file_download</i>Descargar</a>
                                                             </li>
                                                             <li>
                                                               <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'eliminar', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">delete</i>Eliminar</a>
@@ -287,7 +290,10 @@
                                                               <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'historial', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">history</i>Historial</a>
                                                             </li>
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">file_download</i>Descargar</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 1]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">picture_as_pdf</i>Ver</a>
+                                                            </li>
+                                                            <li>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 2]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">file_download</i>Descargar</a>
                                                             </li>
                                                             <li>
                                                               <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'eliminar', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">delete</i>Eliminar</a>

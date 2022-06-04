@@ -322,7 +322,7 @@ class CiudadanoController extends BaseController
         return redirect()->back();
     }
 
-    public function view_document($id){
+    public function view_document($id, $v){
         $documentosM = new Documento();
         $formularioM = new Formularios();
         $respuestasM = new Respuestas();
@@ -479,7 +479,7 @@ class CiudadanoController extends BaseController
                 $mpdf = new \Mpdf\Mpdf([]);
                 $mpdf->WriteHTML($plantilla, \Mpdf\HTMLParserMode::HTML_BODY);
                 $this->response->setHeader('Content-Type', 'application/pdf');
-                $mpdf->Output($name,'I');
+                $mpdf->Output($name, $v==1 ? 'I' : 'D');
                 return ;
             }else
                 return view('errors/html/plantilla');
