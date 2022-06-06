@@ -60,11 +60,7 @@ class EntidadController extends BaseController
         $tipos_documento = $tiposDocumentosM->get()->getResult();
         
         
-<<<<<<< HEAD
-        // return var_dump($documentos);
-=======
         //return var_dump($documentos);
->>>>>>> 61d8611467a1cb17f2d5d8662ff1811ceb33c3d0
 
 
         return view('entidad/entidades' , [
