@@ -98,6 +98,8 @@ class AuthController extends BaseController
 
             $user = new User();
             $user->save($data);
+            
+            //return redirect()-to(base_url().'/home');
         } else {
             return redirect()->to(base_url().'/register')->withInput();
         }

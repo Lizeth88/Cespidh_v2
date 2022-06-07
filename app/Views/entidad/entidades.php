@@ -16,12 +16,13 @@
 
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/pages/page-faq.css">
 
-
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/vendors/sweetalert/sweetalert.css">
-
 
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/pages/app-file-manager.css">
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/pages/widget-timeline.css">
+
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/easy-autocomplete.min.css">
+
 <?= view('layouts/navbar_horizontal')?>
 
 <div id="main">
@@ -728,7 +729,7 @@
 <script src="<?= base_url() ?>/assets/js/search.js"></script>
 <script src="<?= base_url() ?>/assets/js/custom/custom-script.js"></script>
 <script src="<?= base_url() ?>/assets/js/scripts/data-tables.js"></script>
-
+<script src="<?= base_url() ?>/assets/js/jquery.easy-autocomplete.min.js"></script>
     
 <script src="<?= base_url() ?>/assets/vendors/sweetalert/sweetalert.min.js"></script>
     

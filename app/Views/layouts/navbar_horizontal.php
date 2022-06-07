@@ -18,15 +18,16 @@
                                 <?php endif; ?>
                             </i></a></li>
                     <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);"
-                           data-target="profile-dropdown"><?= session('users')['name'] ?><span class="avatar-status avatar-online"><img  style="height: 29px !important;"
-                                        src="<?= session('user') && session('user')->photo ? base_url().'/assets/upload/images/'.session('user')->photo : base_url().'/assets/img/'.'user.png' ?>" alt="avatar">
+                           data-target="profile-dropdown">
+                           <span class="avatar-status avatar-online">
+                               <img  style="height: 29px !important;"
+                                    src="<?= session('user') && session('user')->photo ? base_url().'/assets/upload/images/'.session('user')->photo : base_url().'/assets/img/'.'user.png' ?>" alt="avatar">
                                 <i></i>
-
                             </span>
                             <small style="float: right; padding-left: 10px; font-size: 16px;"
-                                   class="new badge"><?= session('user')->username ?></small>
-
-                          </a>
+                                   class="new badge"><?= session('user')->username ?>
+                            </small>
+                        </a>
                     </li>
                 </ul>
                 <ul class="dropdown-content" id="notifications-dropdown">
@@ -93,7 +94,9 @@
                             <?php if (countMenu($item->id)): ?>
                                 <ul class="dropdown-content dropdown-horizontal-list" id="<?= str_replace(' ', '',$item->option) ?>">
                                     <?php foreach (submenu($item->id) as $key => $submenu): ?>
-                                        <li <?= countMenuTercero($submenu->id) > 0 ? 'class="dropdown menu dropdown-submenu"':'' ?> data-menu="dropdown-submenu"><a <?= countMenuTercero($submenu->id) > 0 ? 'class="dropdownSub-menu"':''?> href="<?= countMenuTercero($submenu->id) ? urlOption() : urlOption($submenu->id) ?>" data-target="submenu_<?= $key ?>"><span data-i18n="submenu_<?= $key ?>_<?= $key_algo ?>"><?= $submenu->option ?><?= countMenuTercero($submenu->id) > 0 ? '<i class="material-icons right">chevron_right</i></span>':'' ?></a>
+                                        <li <?= countMenuTercero($submenu->id) > 0 ? 'class="dropdown menu dropdown-submenu"':'' ?> data-menu="dropdown-submenu">
+                                            <a <?= countMenuTercero($submenu->id) > 0 ? 'class="dropdownSub-menu"':''?> href="<?= countMenuTercero($submenu->id) ? urlOption() : urlOption($submenu->id) ?>" data-target="submenu_<?= $key ?>">
+                                                <span data-i18n="submenu_<?= $key ?>_"><?= $submenu->option ?><?= countMenuTercero($submenu->id) > 0 ? '<i class="material-icons right">chevron_right</i></span>':'' ?></a>
                                             <?php if (countMenuTercero($submenu->id)): ?>
                                                 <ul class="dropdown-content dropdown-horizontal-list" id="submenu_<?= $key ?>">
                                                     <?php foreach(submenuTercero($submenu->id) as $tercero): ?>

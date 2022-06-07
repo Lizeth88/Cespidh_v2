@@ -144,5 +144,9 @@ function prueba_delete(boton, id) {
 function resetform(pagina) {
     console.log(pagina);
     $('#filtrado').trigger("reset");
-    window.location=pagina;
+    // location.href=pagina;
+}
+
+function filtroAuto(){
+    
 }
