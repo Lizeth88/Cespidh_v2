@@ -140,13 +140,40 @@ function prueba_delete(boton, id) {
     prueba.parentNode.removeChild(prueba);
 }
 
-
 function resetform(pagina) {
     console.log(pagina);
     $('#filtrado').trigger("reset");
-    // location.href=pagina;
+    location.href=pagina;
 }
 
-function filtroAuto(){
+// document.getElementById("autocomplete-name").addEventListener("keyup", autocompletado);
+function autocompletado(){
+    documento = autocompletado_aux();
+    console.log(documento[0].name);
+    var opciones = []
+    for (let i in documento) {
+        opciones.push(documento[i].name);
+    }
+    console.log(opciones);
+    var options = {
+        data: opciones,
+        list: {
+            match: {
+                enabled: false
+            },
+            showAnimation: {
+                type: "fade", //normal|slide|fade
+                time: 400,
+                callback: function() {}
+            },
     
+            hideAnimation: {
+                type: "slide", //normal|slide|fade
+                time: 400,
+                callback: function() {}
+            }
+        }
+    };
+    
+    $("#autocomplete-name").easyAutocomplete(options);
 }

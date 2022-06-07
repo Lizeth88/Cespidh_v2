@@ -22,6 +22,7 @@
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/pages/widget-timeline.css">
 
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/easy-autocomplete.min.css">
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/css/easy-autocomplete.themes.min.css">
 
 <?= view('layouts/navbar_horizontal')?>
 
@@ -97,7 +98,7 @@
                                                               <div class="col s12">
                                                                 <div class="row">
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-name" class="autocomplete-name" name="nombre">
+                                                                    <input type="text" id="autocomplete-name" class="autocomplete-name" name="nombre" onchange="autocompletado()" autocomplete="off">
                                                                     <label for="autocomplete-name">Nombre</label>
                                                                   </div>
 
@@ -768,6 +769,11 @@
   function filtro_aux(){
         var data = <?= json_encode($data,JSON_FORCE_OBJECT)?>;
         return data;
+  }
+  function autocompletado_aux(){
+    var documento = <?= json_encode($documents,JSON_FORCE_OBJECT)?>;
+    console.log("autocompletado_aux");
+    return documento;
   }
   
 </script>

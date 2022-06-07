@@ -9,6 +9,8 @@ $(document).ready(function() {
     //     data: sedes_aux(),
     // });
     rellenar(filtro_aux());
+    
+    
 });
 
 function rellenar(data) {
@@ -19,3 +21,4 @@ function rellenar(data) {
     $('input#date-final').val(data.date_finish);
     M.updateTextFields();
 }
+
