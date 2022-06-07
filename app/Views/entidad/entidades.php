@@ -97,13 +97,12 @@
                                                               <div class="col s12">
                                                                 <div class="row">
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-name" class="autocomplete-name" name="nombre" 
-                                                                        <?= !empty($data['nombre']) ? 'value="'.$data['nombre'].'"' :'' ?>>
+                                                                    <input type="text" id="autocomplete-name" class="autocomplete-name" name="nombre">
                                                                     <label for="autocomplete-name">Nombre</label>
                                                                   </div>
 
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-id" class="autocomplete-id" name="cedula" <?= !empty($data['cedula']) ? 'value="'.$data['cedula'].'"' :'' ?>>
+                                                                    <input type="text" id="autocomplete-id" class="autocomplete-id" name="cedula" >
                                                                     <label for="autocomplete-id">Cedula</label>
                                                                   </div>
 
@@ -128,11 +127,11 @@
                                                                     <label for="autocomplete-usuario">Usuario</label>                                                    
                                                                   </div>
                                                                   <div class="input-field col s12 l4">
-                                                                    <input type="text" class="datepicker" id="date-inicial" name="date_init" <?= !empty($data['date_init']) ? 'value="'.$data['date_init'].'"' :'' ?>>
+                                                                    <input type="text" class="datepicker" id="date-inicial" name="date_init" >
                                                                     <label for="date-inicial">Fecha inicial</label>
                                                                   </div>
                                                                   <div class="input-field col s12 l4">
-                                                                    <input type="text" class="datepicker" id="date-final" name="date_finish" <?= !empty($data['date_finish']) ? 'value="'.$data['date_finish'].'"' :'' ?>>
+                                                                    <input type="text" class="datepicker" id="date-final" name="date_finish" >
                                                                     <label for="date-final">Fecha final</label>
                                                                   </div>
                                                                 </div>
@@ -142,7 +141,7 @@
                                                               <button id="filtroB" class="btn waves-effect waves-light blue" type="submit">Filtrar
                                                                 <i class="material-icons right">send</i>
                                                               </button>
-                                                              <a class="btn waves-effect waves-light red lighten-1" onclick="resetform('<?= base_url(['cespidh', 'entidad']) ?>')">Resetear
+                                                              <a class="btn waves-effect waves-light red lighten-1" href="<?= base_url(['cespidh', 'entidad']) ?>">Resetear
                                                                 <i class="material-icons right">close</i>
                                                               </a>
                                                             </div>
@@ -734,7 +733,7 @@
 <script src="<?= base_url() ?>/assets/vendors/sweetalert/sweetalert.min.js"></script>
     
 <script src="<?= base_url() ?>/assets/js/scripts/extra-components-sweetalert.js"></script>
-
+<script src="<?= base_url() ?>/assets/js/new_script/entidad.js"></script>
 <script>
   $(document).ready(function(){
     $('.tooltipped').tooltip();
@@ -764,6 +763,11 @@
         });
       }
     });
+  }
+
+  function filtro_aux(){
+        var data = <?= json_encode($data,JSON_FORCE_OBJECT)?>;
+        return data;
   }
   
 </script>

@@ -45,7 +45,7 @@ class EntidadController extends BaseController
             ->join('users', 'documento.users_id = users.id')
             ->join('documento_tipo', 'documento.id_tipo = documento_tipo.id_tipo')
             ->join('documento_estado', 'documento.id_estado = documento_estado.id_estado')
-            ->join('sede', 'documento.id_sede = sede.id_sede')
+            ->join('sede', 'documento.id_sede = sede.id_sede', 'left')
             ->orderBy('id_documento', 'DESC')
             ->get()->getResult();
         

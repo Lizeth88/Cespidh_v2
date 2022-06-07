@@ -29,11 +29,19 @@ class TableController extends BaseController
         if($component) {
             $this->crud->setTable($component[0]->table);
             switch ($component[0]->table) {
+                case 'users':
+                    $this->crud->displayAs(['name' => 'Nombre', 'email' => 'Correo electrónico', 'username' => 'Nombre de usuario', 'Password' => 'Contraseña', 'status' => 'Estado', 'photo' => 'Foto', 'created_at' => 'Creado', 'role_id' => 'Rol', 'genero_id' =>'Genero', 'grupo_etnia_id' => 'Grupo étnico', 'id_sede'=>'Sede', 'direccion' => 'Dirección', 'phone' => 'Teléfono']);
+                    $this->crud->setRelation('role_id', 'roles', 'name');
+                    $this->crud->setRelation('genero_id', 'genero', 'name');
+                    $this->crud->setRelation('grupo_etnia_id', 'grupo_etnia', 'name');
+                    $this->crud->setRelation('id_sede', 'sede', 'nombre');
+                    break;
                 case 'documento_estado':
                     $this->crud->unsetAdd();
                     $this->crud->unsetDelete();
                     $this->crud->readOnlyFields(['nombre']);
                     break;
+
                 case 'documento_tipo':
                     $this->crud->displayAs(['descripcion' => 'Descripción', 'abreviacion' => 'Abreviación']);
                     $this->crud->setTexteditor(['plantilla']);
