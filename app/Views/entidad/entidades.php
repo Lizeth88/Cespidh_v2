@@ -98,12 +98,12 @@
                                                               <div class="col s12">
                                                                 <div class="row">
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-name" class="autocomplete-name" name="nombre" onchange="autocompletado()" autocomplete="off">
+                                                                    <input type="text" id="autocomplete-name" class="autocomplete-name" name="nombre" onchange="autocompletado('name')" autocomplete="off">
                                                                     <label for="autocomplete-name">Nombre</label>
                                                                   </div>
 
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-id" class="autocomplete-id" name="cedula" >
+                                                                    <input type="text" id="autocomplete-id" class="autocomplete-id" name="cedula">
                                                                     <label for="autocomplete-id">Cedula</label>
                                                                   </div>
 
@@ -117,15 +117,15 @@
                                                                     <label>Tipo de documento</label>  
                                                                   </div>
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-sede" class="autocomplete-sede" name="sede">
-                                                                    <label for="autocomplete-sede">Sede</label>
+                                                                    <input type="text" id="autocomplete-sede_nombre" class="autocomplete-sede_nombre" name="sede_nombre" onchange="autocompletado('sede_nombre')" autocomplete="off">
+                                                                    <label for="autocomplete-sede_nombre">Sede</label>
                                                                   </div>
                                                                 </div>
 
                                                                 <div class="row">
                                                                   <div class="input-field col s12 l4">
-                                                                    <input type="text" id="autocomplete-usuario" class="autocomplete-usuario" name="usuario">
-                                                                    <label for="autocomplete-usuario">Usuario</label>                                                    
+                                                                    <input type="text" id="autocomplete-username" class="autocomplete-username" name="username" onchange="autocompletado('username')" autocomplete="off">
+                                                                    <label for="autocomplete-username">Usuario</label>                                                    
                                                                   </div>
                                                                   <div class="input-field col s12 l4">
                                                                     <input type="text" class="datepicker" id="date-inicial" name="date_init" >
@@ -199,33 +199,35 @@
                                                       <td><?= $document->fecha ?></td>
                                                       <td class="center-align">
                                                         <div style="display: flex;">
-                                                          <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" target="_blank" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
+                                                          <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>"  data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
                                                           <!-- Dropdown Trigger -->
-                                                          <a class="waves-effect waves-block waves-light detail-button" href="javascript:void" data-coverTrigger="true" data-activates="detaile_<?= $document->id_documento ?>" data-target='detaile_<?= $document->id_documento ?>'><i class="material-icons grey-text">more_vert</i></a>
+                                                          <a class="waves-effect waves-block waves-light detail-button" href="javascript:void" data-coverTrigger="true" data-activates="detaile_<?= $document->id_documento ?>" data-target='detaile_<?= $document->id_documento ?>'>
+                                                            <i class="material-icons grey-text">more_vert</i>
+                                                          </a>
                                                           <!-- Dropdown Structure -->
                                                         </div>
                                                         <ul class="dropdown-content dros" style="width: max-content !important;" id="detaile_<?= $document->id_documento ?>"> 
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'historial', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">history</i>Historial</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'historial', 'document', $document->id_documento]) ?>" ><i class="material-icons left" style="margin: 0 5px 0 0;">history</i>Historial</a>
                                                             </li>
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 1]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">picture_as_pdf</i>Ver</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 1]) ?>" ><i class="material-icons left" style="margin: 0 5px 0 0;">picture_as_pdf</i>Ver</a>
                                                             </li>
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 2]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">file_download</i>Descargar</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 2]) ?>" ><i class="material-icons left" style="margin: 0 5px 0 0;">file_download</i>Descargar</a>
                                                             </li>
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'eliminar', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">delete</i>Eliminar</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'eliminar', 'document', $document->id_documento]) ?>" ><i class="material-icons left" style="margin: 0 5px 0 0;">delete</i>Eliminar</a>
                                                             </li>
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'publicar', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">done</i>Publicar</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'publicar', 'document', $document->id_documento]) ?>" ><i class="material-icons left" style="margin: 0 5px 0 0;">done</i>Publicar</a>
                                                             </li>                                                      
                                                           </ul>
                                                       </td>     
                                                       <!-- <td>                                                  
                                                         <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
                                                         <a class="modal-trigger" href="#modal2"><i class="material-icons grey-text">more_vert</i></a>
-                                                        <a href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" target="_blank">Ver</a>                                                  
+                                                        <a href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento]) ?>" >Ver</a>                                                  
                                                       </td> -->
                                                       <!-- <td class="center-align">
                                                         <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
@@ -282,25 +284,25 @@
                                                       <td><?= $document->fecha ?></td>
                                                       <td class="center-align">
                                                         <div style="display: flex;">
-                                                          <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>" target="_blank" data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
+                                                          <a class="tooltipped" href="<?= base_url(['cespidh', 'edit', 'document', $document->id_documento]) ?>"  data-position="bottom" data-tooltip="Editar"><i class="material-icons grey-text">create</i></a>
                                                           <a class="waves-effect waves-block waves-light detail-button" href="javascript:void" data-coverTrigger="true" data-activates="detail_<?= $document->id_documento ?>" data-target='detail_<?= $document->id_documento ?>'>
                                                             <i class="material-icons grey-text">more_vert</i>
                                                           </a>
                                                           <ul class="dropdown-content dros" style="width: max-content !important;" id="detail_<?= $document->id_documento ?>"> 
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'historial', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">history</i>Historial</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'historial', 'document', $document->id_documento]) ?>" ><i class="material-icons left" style="margin: 0 5px 0 0;">history</i>Historial</a>
                                                             </li>
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 1]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">picture_as_pdf</i>Ver</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 1]) ?>" ><i class="material-icons left" style="margin: 0 5px 0 0;">picture_as_pdf</i>Ver</a>
                                                             </li>
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 2]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">file_download</i>Descargar</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'view', 'document', $document->id_documento, 2]) ?>" ><i class="material-icons left" style="margin: 0 5px 0 0;">file_download</i>Descargar</a>
                                                             </li>
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'eliminar', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">delete</i>Eliminar</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'eliminar', 'document', $document->id_documento]) ?>" ><i class="material-icons left" style="margin: 0 5px 0 0;">delete</i>Eliminar</a>
                                                             </li>
                                                             <li>
-                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'publicar', 'document', $document->id_documento]) ?>" target="_blank"><i class="material-icons left" style="margin: 0 5px 0 0;">done</i>Publicar</a>
+                                                              <a class="blue-text text-darken-1" style="padding:7px 8px;color:white !important;" href="<?= base_url(['cespidh', 'publicar', 'document', $document->id_documento]) ?>" ><i class="material-icons left" style="margin: 0 5px 0 0;">done</i>Publicar</a>
                                                             </li>                                                      
                                                           </ul>
                                                         </div>
