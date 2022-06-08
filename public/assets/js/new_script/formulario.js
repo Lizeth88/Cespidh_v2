@@ -159,7 +159,7 @@ function autocompletado(){
         data: opciones,
         list: {
             match: {
-                enabled: false
+                enabled: true
             },
             showAnimation: {
                 type: "fade", //normal|slide|fade
