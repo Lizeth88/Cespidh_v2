@@ -147,33 +147,54 @@ function resetform(pagina) {
 }
 
 // document.getElementById("autocomplete-name").addEventListener("keyup", autocompletado);
-function autocompletado(){
+function autocompletado(campollegada){
+    let campo = campollegada;
     documento = autocompletado_aux();
-    console.log(documento[0].name);
-    var opciones = []
+    var opciones = [];
     for (let i in documento) {
-        opciones.push(documento[i].name);
+        opciones.push(documento[i][campo]);
     }
     console.log(opciones);
     var options = {
         data: opciones,
         list: {
             match: {
-                enabled: false
+                enabled: true
             },
-            showAnimation: {
-                type: "fade", //normal|slide|fade
-                time: 400,
-                callback: function() {}
-            },
+            // showAnimation: {
+            //     type: "fade", //normal|slide|fade
+            //     time: 400,
+            //     callback: function() {}
+            // },
     
-            hideAnimation: {
-                type: "slide", //normal|slide|fade
-                time: 400,
-                callback: function() {}
+            // hideAnimation: {
+            //     type: "slide", //normal|slide|fade
+            //     time: 400,
+            //     callback: function() {}
+            // },
+            onSelectItemEvent: function() {
+                switch (campo) {
+                    case "name":
+                        var value = $("#autocomplete-name").getSelectedItemData().name;
+                        $("#autocomplete-name").val(value).trigger("change");
+                      break;
+                    case "sede_nombre": 
+                        var value = $("#autocomplete-sede_nombre").getSelectedItemData().sede_nombre;
+                        $("#autocomplete-sede_nombre").val(value).trigger("change");
+                        console.log('sede_nombre');
+                      break; 
+                    case "username":
+                        var value = $("#autocomplete-username").getSelectedItemData().username;
+                        $("#autocomplete-username").val(value).trigger("change");
+                      break;
+                    default:
+                      console.log('default');
+                      var value = $("#autocomplete-name").getSelectedItemData().name;
+                      $("#autocomplete-name").val(value).trigger("change");
+                }
             }
         }
     };
     
-    $("#autocomplete-name").easyAutocomplete(options);
+    $("#autocomplete-"+campo).easyAutocomplete(options);
 }
