@@ -79,6 +79,7 @@ class EntidadController extends BaseController
         $type_document = $this->request->getPost('tipo_documento');
         $date_init = $this->request->getPost('date_init');
         $date_finish = $this->request->getPost('date_finish');
+        $sede_nombre = $this->request->getPost('sede_nombre');
 
         $post = $this->request->getPost();
 
@@ -87,24 +88,27 @@ class EntidadController extends BaseController
         $formularioM = new Formularios();
         $genero = new Genero();
         $etnia = new Etnia();
-
-        $parcial = $documentosM
-            ->join('users', 'documento.users_id = users.id')
-            ->join('documento_tipo', 'documento.id_tipo = documento_tipo.id_tipo')
-            ->join('documento_estado', 'documento.id_estado = documento_estado.id_estado')
-            ->orderBy('id_documento', 'DESC');
-
+        $parcial = $documentosM->select('documento.*, users.*, documento_tipo.*, documento_estado.*, sede.nombre as sede_nombre')
+        ->join('users', 'documento.users_id = users.id')
+        ->join('documento_tipo', 'documento.id_tipo = documento_tipo.id_tipo')
+        ->join('documento_estado', 'documento.id_estado = documento_estado.id_estado')
+        ->join('sede', 'documento.id_sede = sede.id_sede', 'left')
+        ->orderBy('id_documento', 'DESC');
+        
         if(!empty($nombre))
-            $parcial = $parcial->like(['users.name' => $nombre]);
+        $parcial = $parcial->like(['users.name' => $nombre]);
         if(!empty($cedula))
-            $parcial = $parcial->like(['documento.users_id' => $cedula]);
+        $parcial = $parcial->like(['documento.users_id' => $cedula]);
         if(!empty($type_document))
-            $parcial = $parcial->where(['documento.id_tipo' => $type_document]);
+        $parcial = $parcial->where(['documento.id_tipo' => $type_document]);
         if(!empty($date_init))
-            $parcial = $parcial->where(['documento.fecha >=' => date('Y-m-d', strtotime($date_init)).' 00:00:00']);
+        $parcial = $parcial->where(['documento.fecha >=' => date('Y-m-d', strtotime($date_init)).' 00:00:00']);
         if(!empty($date_finish))
-            $parcial = $parcial->where(['documento.fecha <=' => date('Y-m-d', strtotime($date_finish)).' 23:59:59']);
-
+        $parcial = $parcial->where(['documento.fecha <=' => date('Y-m-d', strtotime($date_finish)).' 23:59:59']);
+        if(!empty($sede_nombre))
+        $parcial = $parcial->like(['sede.nombre' => $sede_nombre]);
+        
+        
         $formularios = $formularioM
             ->join('documento_tipo', 'documento_tipo.id_tipo = formularios.documento_tipo_id_tipo')
             ->orderBy('orden', 'ASC')
