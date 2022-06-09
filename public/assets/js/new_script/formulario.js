@@ -161,11 +161,11 @@ function autocompletado(campollegada){
             match: {
                 enabled: true
             },
-            // showAnimation: {
-            //     type: "fade", //normal|slide|fade
-            //     time: 400,
-            //     callback: function() {}
-            // },
+            showAnimation: {
+                type: "fade", //normal|slide|fade
+                time: 400,
+                callback: function() {}
+            },
     
             // hideAnimation: {
             //     type: "slide", //normal|slide|fade
