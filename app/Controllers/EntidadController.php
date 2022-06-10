@@ -74,8 +74,8 @@ class EntidadController extends BaseController
     }
 
     public function search(){
-        $nombre = $this->request->getPost('nombre');
-        $cedula = $this->request->getPost('cedula');
+        $nombre = $this->request->getPost('name');
+        $cedula = $this->request->getPost('users_id');
         $type_document = $this->request->getPost('tipo_documento');
         $date_init = $this->request->getPost('date_init');
         $date_finish = $this->request->getPost('date_finish');

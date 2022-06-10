@@ -146,55 +146,178 @@ function resetform(pagina) {
     location.href=pagina;
 }
 
-// document.getElementById("autocomplete-name").addEventListener("keyup", autocompletado);
-function autocompletado(campollegada){
-    let campo = campollegada;
-    documento = autocompletado_aux();
-    var opciones = [];
-    for (let i in documento) {
-        opciones.push(documento[i][campo]);
-    }
-    console.log(opciones);
-    var options = {
-        data: opciones,
-        list: {
-            match: {
-                enabled: true
-            },
-            showAnimation: {
-                type: "fade", //normal|slide|fade
-                time: 400,
-                callback: function() {}
-            },
-    
-            // hideAnimation: {
-            //     type: "slide", //normal|slide|fade
-            //     time: 400,
-            //     callback: function() {}
-            // },
-            onSelectItemEvent: function() {
-                switch (campo) {
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.autocomplete');
+    var documento = autocompletado_aux();
+    console.log(documento);
+
+    var jsonname = {};
+    var jsonusers_id = {};
+    var jsonsede = {};
+    var jsonusername = {};
+    // console.log(elems);
+    for (let i in elems) {
+        for (let j in documento) {
+            if(elems[i].id){
+                switch (elems[i].name) {
                     case "name":
-                        var value = $("#autocomplete-name").getSelectedItemData().name;
-                        $("#autocomplete-name").val(value).trigger("change");
-                      break;
-                    case "sede_nombre": 
-                        var value = $("#autocomplete-sede_nombre").getSelectedItemData().sede_nombre;
-                        $("#autocomplete-sede_nombre").val(value).trigger("change");
-                        console.log('sede_nombre');
-                      break; 
+                        jsonname[documento[j].name]= null;
+                        $('#'+elems[i].id).autocomplete({
+                            limit : 5 ,
+                            data: jsonname});
+                        break;
+                    case "users_id":
+                        jsonusers_id[documento[j].users_id] = null;
+                        $('#'+elems[i].id).autocomplete({limit : 5 ,data: jsonusers_id});
+                        break;
+                    case "sede_nombre":
+                        jsonsede[documento[j].sede_nombre]= null;
+                        $('#'+elems[i].id).autocomplete({limit : 5 ,data: jsonsede});
+                        break;
                     case "username":
-                        var value = $("#autocomplete-username").getSelectedItemData().username;
-                        $("#autocomplete-username").val(value).trigger("change");
-                      break;
-                    default:
-                      console.log('default');
-                      var value = $("#autocomplete-name").getSelectedItemData().name;
-                      $("#autocomplete-name").val(value).trigger("change");
+                        jsonusername[documento[j].username] = null;
+                        $('#'+elems[i].id).autocomplete({limit : 5 ,data: jsonusername});
+                        break;
                 }
             }
+            console.log(documento[j]);
         }
-    };
+    }
+  });
+
+// function autocompletado(campollegada){
+//     let campo = campollegada;
     
-    $("#autocomplete-"+campo).easyAutocomplete(options);
-}
+//     var opciones = [];
+//     for (let i in documento) {
+//         opciones.push(documento[i][campo]);
+//     }
+//     console.log(opciones);
+//     var instances = M.Autocomplete.init($('#autocomplete-'+campo), opciones);
+
+//     var a, b, i, val;
+    
+//     val = $('#autocomplete-'+campo).val();
+
+//     closeAllLists();
+//     if (!val) { return false;}
+//     currentFocus = -1;
+//     a = document.createElement("DIV");
+//     a.setAttribute("id", '#autocomplete-'+campo + "autocomplete-list");
+//     a.setAttribute("class", "autocomplete-items input-field col s12");
+//     $('#autocomplete-'+campo).parent().append(a);
+//     for (i = 0; i < opciones.length; i++) {
+//         if (opciones[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+//             b = document.createElement("<select>");
+//             // b.setAttribute("onclick","completar('hidden"+i+"')");
+//             b.innerHTML = "<select>"
+//             b.innerHTML = "<strong>" + opciones[i].substr(0, val.length) + "</strong>";
+//             b.innerHTML += opciones[i].substr(val.length);
+//             b.innerHTML += "<input id='hidden"+i+"' type='hidden' value='" + opciones[i] + "'>";
+
+//             b.addEventListener("click", function() {
+//                 console.log($('#hidden'+i+'').val());
+
+//                 $('#autocomplete-'+campo).val($('#autocomplete'+campo).getElementsByTagName("input")[0].value);
+//                 console.log( $('#autocomplete-'+campo).val());
+                
+//                 closeAllLists();
+//             }
+            
+            
+//             );
+            
+            
+//             a.append(b);
+//         }
+//     }
+    
+//     $('#autocomplete-'+campo).on("keydown", function(e) {
+//         var x = document.getElementById(this.id + "autocomplete-list");
+//         if (x) x = x.getElementsByTagName("div");
+//         if (e.keyCode == 40) {
+          
+//           currentFocus++;
+          
+//           addActive(x);
+//         } else if (e.keyCode == 38) { 
+//           currentFocus--;
+          
+//           addActive(x);
+//         } else if (e.keyCode == 13) {
+          
+//           e.preventDefault();
+//           if (currentFocus > -1) {
+            
+//             if (x) x[currentFocus].click();
+//           }
+//         }
+//     });
+//     function addActive(x) {
+//         if (!x) return false;
+//         removeActive(x);
+//         if (currentFocus >= x.length) currentFocus = 0;
+//         if (currentFocus < 0) currentFocus = (x.length - 1);
+        
+//         x[currentFocus].classList.add("autocomplete-active");
+//     }
+//     function removeActive(x) {
+//     for (var i = 0; i < x.length; i++) {
+//         x[i].classList.remove("autocomplete-active");
+//     }
+//     }
+//     function closeAllLists(elmnt) {
+//         var x = document.getElementsByClassName("autocomplete-items");
+//         for (var i = 0; i < x.length; i++) {
+//         if (elmnt != x[i] && elmnt != $('#autocomplete-'+campo)) {
+//         x[i].parentNode.removeChild(x[i]);
+//         }
+//     }
+//     }
+
+
+//     // var options = {
+//     //     data: opciones,
+//     //     list: {
+//     //         match: {
+//     //             enabled: true
+//     //         },
+//     //         showAnimation: {
+//     //             type: "fade", //normal|slide|fade
+//     //             time: 400,
+//     //             callback: function() {}
+//     //         },
+    
+//     //         hideAnimation: {
+//     //             type: "slide", //normal|slide|fade
+//     //             time: 400,
+//     //             callback: function() {}
+//     //         },
+//     //         onSelectItemEvent: function() {
+//     //             switch (campo) {
+//     //                 case "name":
+//     //                     var value = $("#autocomplete-name").getSelectedItemData().name;
+//     //                     $("#autocomplete-name").val(value);
+//     //                   break;
+//     //                 case "sede_nombre": 
+//     //                     var value = $("#autocomplete-sede_nombre").getSelectedItemData().sede_nombre;
+//     //                     $("#autocomplete-sede_nombre").val(value);
+//     //                     console.log('sede_nombre');
+//     //                   break; 
+//     //                 case "username":
+//     //                     var value = $("#autocomplete-username").getSelectedItemData().username;
+//     //                     $("#autocomplete-username").val(value);
+//     //                   break;
+//     //                 default:
+//     //                   console.log('default');
+//     //                   var value = $("#autocomplete-name").getSelectedItemData().name;
+//     //                   $("#autocomplete-name").val(value);
+//     //             }
+//     //         }
+//     //     }
+//     // };
+    
+//     // $("#autocomplete-"+campo).easyAutocomplete(options);
+// }
+
+

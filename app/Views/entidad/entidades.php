@@ -98,12 +98,12 @@
                                                               <div class="col s12">
                                                                 <div class="row">
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-name" class="autocomplete-name" name="nombre" onchange="autocompletado('name')" autocomplete="off">
+                                                                    <input type="text" id="autocomplete-name" class="autocomplete" name="name" autocomplete="off" ><!--onkeyup="autocompletado('name')" >-->
                                                                     <label for="autocomplete-name">Nombre</label>
                                                                   </div>
 
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-id" class="autocomplete-id" name="cedula">
+                                                                    <input type="text" id="autocomplete-id" class="autocomplete" name="users_id" autocomplete="off">
                                                                     <label for="autocomplete-id">Cedula</label>
                                                                   </div>
 
@@ -117,14 +117,14 @@
                                                                     <label>Tipo de documento</label>  
                                                                   </div>
                                                                   <div class="input-field col s12 l3">
-                                                                    <input type="text" id="autocomplete-sede_nombre" class="autocomplete-sede_nombre" name="sede_nombre" onchange="autocompletado('sede_nombre')" autocomplete="off">
+                                                                    <input value="" type="text" id="autocomplete-sede_nombre" autocomplete="off" class="autocomplete" name="sede_nombre"><!-- onkeyup="autocompletado('sede_nombre')" -->
                                                                     <label for="autocomplete-sede_nombre">Sede</label>
                                                                   </div>
                                                                 </div>
 
                                                                 <div class="row">
                                                                   <div class="input-field col s12 l4">
-                                                                    <input type="text" id="autocomplete-username" class="autocomplete-username" name="username" onchange="autocompletado('username')" autocomplete="off">
+                                                                    <input type="text" id="autocomplete-username" class="autocomplete" name="username" autocomplete="off"> <!--onkeyup="autocompletado('username')" -->
                                                                     <label for="autocomplete-username">Usuario</label>                                                    
                                                                   </div>
                                                                   <div class="input-field col s12 l4">
@@ -156,13 +156,13 @@
                                       </div>
                                       <div class="row">
                                         <div class="col s12">                                        
-                                          <ul class="tabs">
+                                          <ul class="tabs tabs-fixed-width">
                                             <?php foreach($estados as $key => $estado): ?>
-                                              <li class="tab col m3"><a href="#estado_<?= ($key+1) ?>" class=""><?= $estado->nombre ?></a></li>
+                                              <li class="tab col m2"><a href="#estado_<?= ($key+1) ?>" class=""><?= $estado->nombre ?></a></li>
                                               <!-- <li class="tab col m3"><a href="#test2">Rechazadas</a></li><?= $key==0 ?'active':'' ?>
                                               <li class="tab col m3"><a href="#test3">Finalizado</a></li> -->
                                             <?php endforeach ?>
-                                            <li class="tab col m3"><a href="#todo" class="active">Todas</a></li>
+                                            <li class="tab col m2"><a href="#todo" class="active">Todas</a></li>
                                           </ul>
                                           <?php foreach($estados as $key => $estado): ?>  
                                             <div id="estado_<?= ($key+1) ?>" class="col s12">
@@ -768,14 +768,15 @@
     });
   }
 
+  function autocompletado_aux(){
+      var documento = <?= json_encode($documents,JSON_FORCE_OBJECT)?>;
+      console.log("autocompletado_aux");
+      return documento;
+    }
+
   function filtro_aux(){
         var data = <?= json_encode($data,JSON_FORCE_OBJECT)?>;
         return data;
-  }
-  function autocompletado_aux(){
-    var documento = <?= json_encode($documents,JSON_FORCE_OBJECT)?>;
-    console.log("autocompletado_aux");
-    return documento;
   }
   
 </script>
