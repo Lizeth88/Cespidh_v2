@@ -9,6 +9,7 @@ use App\Models\Respuestas;
 use App\Models\Etnia;
 use App\Models\Genero;
 use App\Models\User;
+use App\Models\Work;
 use App\Models\TiposDocumento;
 use Config\Services;
 
@@ -41,13 +42,26 @@ class EntidadController extends BaseController
         $genero = $genero->orderBy('orden', 'ASC')->get()->getResult();
 
         $documentosM = new Documento();
-        $documentos = $documentosM->select('documento.*, users.*, documento_tipo.*, documento_estado.*, sede.nombre as sede_nombre')
+        // $subquery = $documentosM->select()->join('work', 'documento.id_documento = work.documento_id_documento', 'left')
+        // ->orderBy('work.created_at', 'DESC')->limit(1);
+        // var_dump($subquery);
+        $documentos = $documentosM->select('documento.*, users.*, documento_tipo.*, documento_estado.*, sede.nombre as sede_nombre, work.*, work.users_id as username_id')
+            // ->select('(select * from users where (users.id = work.users_id)) AS username', false)
             ->join('users', 'documento.users_id = users.id')
             ->join('documento_tipo', 'documento.id_tipo = documento_tipo.id_tipo')
             ->join('documento_estado', 'documento.id_estado = documento_estado.id_estado')
             ->join('sede', 'documento.id_sede = sede.id_sede', 'left')
+            ->join('work', 'documento.id_documento = work.documento_id_documento', 'left')
+            // ->fromSubquery('Select * From documento LEFT JOIN work ON documento.id_documento = documento_id_documento ORDER BY created_at DESC limit 1')
             ->orderBy('id_documento', 'DESC')
             ->get()->getResult();
+        
+        
+        // return var_dump($documentos);
+        // $mejor = new User;
+        // foreach($documentos as $key => $documento){
+        //     $usersWork = $mejor->select(); //select('select * from users where (users.id = '.$documento->documento_id_documento.'');
+        // }
         
         $estados = $documentosM
             ->select('id_estado, count(*) as total,

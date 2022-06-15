@@ -183,7 +183,7 @@
                                               </thead>
                                               <tbody>
                                                 <?php foreach($documents as $document): ?>
-                                                  <?php if($document->id_estado==$estado->id_estado): ?>
+                                                  <?php  if($document->id_estado==$estado->id_estado): ?>
                                                     <tr>
                                                       <!-- <td><?= $document->abreviacion.''.$document->id_documento ?></td> -->
                                                       <td><?= $document->name ?></td>
@@ -195,7 +195,7 @@
                                                         // $colaborador = 'No necesita';
                                                         // if( $document->help)
                                                       ?>
-                                                      <td><?= $document->help == 'off' ? 'No necesita': 'No asignado' ?></td>
+                                                      <td><?= $document->help == 'off' ? 'No necesita': ($document->username_id ? $document->username_id : 'No asignado') ?></td>
                                                       <td><?= $document->fecha ?></td>
                                                       <td class="center-align">
                                                         <div style="display: flex;">
@@ -269,7 +269,7 @@
                                                   </tr>
                                               </thead>
                                               <tbody>
-                                                <?php foreach($documents as $document): ?>                                            
+                                                <?php foreach($documents as $document): ?>                           
                                                   <tr>
                                                       <td><?= $document->name ?></td>
                                                       <td><?= $document->id ?></td>
@@ -280,7 +280,7 @@
                                                         // $colaborador = 'No necesita';
                                                         // if( $document->help)
                                                       ?>
-                                                      <td><?= $document->help == 'off' ? 'No necesita': 'No asignado' ?></td>
+                                                      <td><?= $document->help == 'off' ? 'No necesita': ($document->username_id ? $document->username_id : 'No asignado') ?></td>
                                                       <td><?= $document->fecha ?></td>
                                                       <td class="center-align">
                                                         <div style="display: flex;">
