@@ -45,14 +45,12 @@ class EntidadController extends BaseController
         // $subquery = $documentosM->select()->join('work', 'documento.id_documento = work.documento_id_documento', 'left')
         // ->orderBy('work.created_at', 'DESC')->limit(1);
         // var_dump($subquery);
-        $documentos = $documentosM->select('documento.*, users.*, documento_tipo.*, documento_estado.*, sede.nombre as sede_nombre, work.*, work.users_id as username_id')
-            // ->select('(select * from users where (users.id = work.users_id)) AS username', false)
+        $documentos = $documentosM->select('documento.*, users.*, documento_tipo.*, documento_estado.*, sede.nombre as sede_nombre, work.users_id as username_id')
             ->join('users', 'documento.users_id = users.id')
             ->join('documento_tipo', 'documento.id_tipo = documento_tipo.id_tipo')
             ->join('documento_estado', 'documento.id_estado = documento_estado.id_estado')
             ->join('sede', 'documento.id_sede = sede.id_sede', 'left')
             ->join('work', 'documento.id_documento = work.documento_id_documento', 'left')
-            // ->fromSubquery('Select * From documento LEFT JOIN work ON documento.id_documento = documento_id_documento ORDER BY created_at DESC limit 1')
             ->orderBy('id_documento', 'DESC')
             ->get()->getResult();
         
@@ -74,7 +72,7 @@ class EntidadController extends BaseController
         $tipos_documento = $tiposDocumentosM->get()->getResult();
         
         
-        //return var_dump($documentos);
+        return var_dump($documentos);
 
 
         return view('entidad/entidades' , [
@@ -94,8 +92,8 @@ class EntidadController extends BaseController
         $date_init = $this->request->getPost('date_init');
         $date_finish = $this->request->getPost('date_finish');
         $sede_nombre = $this->request->getPost('sede_nombre');
-
-        $post = $this->request->getPost();
+        $work = $this->request->getPost('sede_nombre');
+        $post = $this->request->getPost('usuario');
 
         $documentosM = new Documento();
         $documentsM = new Documento();
@@ -119,6 +117,8 @@ class EntidadController extends BaseController
         $parcial = $parcial->where(['documento.fecha >=' => date('Y-m-d', strtotime($date_init)).' 00:00:00']);
         if(!empty($date_finish))
         $parcial = $parcial->where(['documento.fecha <=' => date('Y-m-d', strtotime($date_finish)).' 23:59:59']);
+        if(!empty($sede_nombre))
+        $parcial = $parcial->like(['sede.nombre' => $sede_nombre]);
         if(!empty($sede_nombre))
         $parcial = $parcial->like(['sede.nombre' => $sede_nombre]);
         
