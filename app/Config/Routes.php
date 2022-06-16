@@ -62,6 +62,7 @@ $routes->group('cespidh', function ($routes){
 
 	// Historial
 	$routes->get('historial/document/(:segment)', 'CiudadanoController::historial/$1');
+	$routes->post('historial/colaborador/(:segment)', 'CiudadanoController::colaborador/$1');
 
 	
 	//Entidad

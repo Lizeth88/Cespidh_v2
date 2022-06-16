@@ -53,7 +53,9 @@ class EntidadController extends BaseController
             ->join('work', 'documento.id_documento = work.documento_id_documento', 'left')
             ->orderBy('id_documento', 'DESC')
             ->get()->getResult();
-        
+        $documentoColab = $documentosM->select('documento.*, users.*')
+            ->join('users', 'documento.help = users.id')
+            ->get()->getResult();
         
         // return var_dump($documentos);
         // $mejor = new User;
@@ -72,7 +74,7 @@ class EntidadController extends BaseController
         $tipos_documento = $tiposDocumentosM->get()->getResult();
         
         
-        return var_dump($documentos);
+        // return var_dump($documentos);
 
 
         return view('entidad/entidades' , [
@@ -80,6 +82,7 @@ class EntidadController extends BaseController
             'etnias' => $etnia,
             'generos' => $genero,
             'documents' => $documentos,
+            'documentoColab' => $documentoColab,
             'estados' => $estados,
             'tipo_documento' => $tipos_documento,
         ]);         

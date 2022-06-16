@@ -487,8 +487,6 @@ class CiudadanoController extends BaseController
             return view('errors/html/error_404');
         }
     }
-
-
     /// Edit Document
 
     public function view_edit($id){
@@ -822,9 +820,7 @@ class CiudadanoController extends BaseController
         }
         return redirect()->to(base_url(['cespidh', 'edit', 'document', $id_document]));
         // return var_dump($formularioB);
-
     }
-
     public function historial($id){
         $userM = new User();
         $users = $userM->where(['role_id' => 4])->get()->GetResult();
@@ -834,11 +830,37 @@ class CiudadanoController extends BaseController
             ->join('users', 'users.id = work.users_id')
             ->join('roles', 'roles.id = users.role_id')
             ->get()->GetResult();
-        //return var_dump($historial);
+        $documento = new Documento();
+        $documentoM = $documento->where(['id_documento'=> $id])
+            ->join('users', 'users.id = documento.help')
+            ->get()->getFirstRow();
+
+        // return var_dump($documentoM->name);
         return view('ciudadano/historial', [
+            'documento'=>$documentoM,
+            'id' => $id,
             'colaboradores' => $users,
             'historiales' => $historial
         ]);
+    }
+    
+    public function colaborador ($id){
+        
+        $documento = new Documento();
+        $documento = $documento->where(['id_documento'=> $id]);
+        // return var_dump($documento);
+        $colaborador = $this->request->getPost('colaborador');
+        $infoNueva = [
+            'help' => !empty($colaborador) ? $colaborador : 'off'
+        ];
+        $documento->set('help', !empty($colaborador) ? $colaborador : 'off');
+        $cond = $documento->update();
+        if($cond){
+            return "News item created successfully.";
+        }else{
+            return "No creado.";
+        }
+
     }
 
 

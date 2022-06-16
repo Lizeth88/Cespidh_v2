@@ -48,7 +48,7 @@
                     <?php foreach($historiales as $historia): ?>
                       <tr>
                         <td><?= $historia->created_at ?></td>
-                        <td><?= $historia->username ?></td>
+                        <td><?= $documento->name ? $documento->name : $historia->username ?></td>
                         <td><?= $historia->name ?></td>
                         <td><?= $historia->observation ?></td>
                       </tr> 
@@ -62,15 +62,15 @@
         </div>
       </div>
     </div>
-    
     <div class="col s12 m3">
       <div class="container">
         <div class="section">
-          <form action="">
+          <form method="post" action="<?= base_url(['cespidh', 'historial', 'colaborador', $id]) ?>">
+            <?= csrf_field() ?>
             <h5>Colaborador</h5>
             <hr>
             <div class="input-field">
-              <select class="select2 browser-default">
+              <select name="colaborador" class="select2 browser-default">
                 <option value="" disable selected>Seleccionar colaborador</option>
                 <?php foreach($colaboradores as $key => $colaborador): ?>
                   <option value="<?= $colaborador->id ?>"><?= $colaborador->name ?></option>

@@ -182,12 +182,12 @@
                                                   </tr>
                                               </thead>
                                               <tbody>
-                                                <?php foreach($documents as $document): ?>
+                                                <?php foreach($documents as $key => $document ): ?>
                                                   <?php  if($document->id_estado==$estado->id_estado): ?>
                                                     <tr>
                                                       <!-- <td><?= $document->abreviacion.''.$document->id_documento ?></td> -->
                                                       <td><?= $document->name ?></td>
-                                                      <td><?= $document->id ?></td>
+                                                      <td><?= $document->id ?> <? echo "$key" ?></td>
                                                       <td><?= $document->descripcion ?></td>
                                                       <td><?= $document->nombre ?></td>
                                                       <td><?= $document->sede_nombre ?></td>
@@ -195,7 +195,9 @@
                                                         // $colaborador = 'No necesita';
                                                         // if( $document->help)
                                                       ?>
-                                                      <td><?= $document->help == 'off' ? 'No necesita': ($document->username_id ? $document->username_id : 'No asignado') ?></td>
+                                                      <td>
+                                                        <?= $document->help == 'off' ? 'No necesita': ($documentoColab[$key]->name ? $documentoColab[$key]->name : ($document->username_id ? $document->username_id : 'No asignado')) ?>
+                                                      </td>
                                                       <td><?= $document->fecha ?></td>
                                                       <td class="center-align">
                                                         <div style="display: flex;">
@@ -269,18 +271,14 @@
                                                   </tr>
                                               </thead>
                                               <tbody>
-                                                <?php foreach($documents as $document): ?>                           
+                                                <?php foreach($documents as $key => $document): ?>                           
                                                   <tr>
                                                       <td><?= $document->name ?></td>
-                                                      <td><?= $document->id ?></td>
+                                                      <td><?= $document->users_id ?></td>
                                                       <td><?= $document->descripcion ?></td>
                                                       <td><?= $document->nombre ?></td>
                                                       <td><?= $document->sede_nombre ?></td>
-                                                      <?php
-                                                        // $colaborador = 'No necesita';
-                                                        // if( $document->help)
-                                                      ?>
-                                                      <td><?= $document->help == 'off' ? 'No necesita': ($document->username_id ? $document->username_id : 'No asignado') ?></td>
+                                                      <td><?= $document->help == 'off' ? 'No necesita': ($documentoColab[$key]->name ? $documentoColab[$key]->name : ($document->username_id ? $document->username_id : 'No asignado')) ?></td>
                                                       <td><?= $document->fecha ?></td>
                                                       <td class="center-align">
                                                         <div style="display: flex;">
