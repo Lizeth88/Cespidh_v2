@@ -529,6 +529,7 @@ class CiudadanoController extends BaseController
     }
 
     public function edit_document(){
+        $success = false;
         $id_document = $this->request->getPost('id_documento');
         $id_formulario = $this->request->getPost('id_formulario');
         $formularioM = new Formularios();
@@ -545,7 +546,7 @@ class CiudadanoController extends BaseController
                             $value = $this->request->getPost($pregunta->campo_formulario);
                             if(!empty($pregunta->respuesta)){
                                 if($pregunta->respuesta[0]->respuesta != $value){
-                                    $respuestaM->set(['respuesta' => $value])->where(['id' => $pregunta->respuesta[0]->id])->update();
+                                    $success= $respuestaM->set(['respuesta' => $value])->where(['id' => $pregunta->respuesta[0]->id])->update();
                                 }
                             }elseif(!empty($value)){
                                 $data = [
@@ -555,7 +556,8 @@ class CiudadanoController extends BaseController
                                     'secciones_id' => $seccion->id,
                                     'respuesta' => $value,
                                 ];
-                                $respuestaM->insert($data);
+                                $success = $respuestaM->insert($data);
+                                
                             }
                             break;
                         case 2:
@@ -563,7 +565,7 @@ class CiudadanoController extends BaseController
                             $value = $this->request->getPost($pregunta->campo_formulario);
                             if(!empty($pregunta->respuesta)){
                                 if($pregunta->respuesta[0]->pregunta_detalle_id != $value){
-                                    $respuestaM->set(['pregunta_detalle_id' => $value])->where(['id' => $pregunta->respuesta[0]->id])->update();
+                                    $success = $respuestaM->set(['pregunta_detalle_id' => $value])->where(['id' => $pregunta->respuesta[0]->id])->update();
                                 }
                             }elseif(!empty($value)){
                                 $data = [
@@ -573,7 +575,8 @@ class CiudadanoController extends BaseController
                                     'secciones_id' => $seccion->id,
                                     'pregunta_detalle_id' => $value,
                                 ];
-                                $respuestaM->insert($data);
+                                $success = $respuestaM->insert($data);
+                                
                             }
                             break;
                         case 3:
@@ -603,7 +606,8 @@ class CiudadanoController extends BaseController
                                                 'secciones_id' => $seccion->id,
                                                 'pregunta_detalle_id' => $valores
                                             ];
-                                            $respuestaM->insert($data);
+                                            $success = $respuestaM->insert($data);
+                                            
                                             foreach ($detalles->hijos as $key => $hijos) {
                                                 switch ($hijos->tipo_pregunta_id) {
                                                     case 1:
@@ -617,7 +621,8 @@ class CiudadanoController extends BaseController
                                                                 'respuesta' => $value_2,
                                                                 'pregunta_detalle_id' => $hijos->id
                                                             ];
-                                                            $respuestaM->insert($data);
+                                                            $success = $respuestaM->insert($data);
+                                                            
                                                         }
                                                         break;
                                                     case 3:
@@ -630,7 +635,8 @@ class CiudadanoController extends BaseController
                                                                 'secciones_id' => $seccion->id,
                                                                 'pregunta_detalle_id' => $value_2
                                                             ];
-                                                            $respuestaM->insert($data);
+                                                            $success = $respuestaM->insert($data);
+                                                            
                                                         }
                                                         break;
                                                     case 4:
@@ -645,7 +651,8 @@ class CiudadanoController extends BaseController
                                                                         'secciones_id' => $seccion->id,
                                                                         'pregunta_detalle_id' => $check_box
                                                                     ];
-                                                                    $respuestaM->insert($data);
+                                                                    $success = $respuestaM->insert($data);
+                                                                    
                                                                 }
                                                             }
                                                         }
@@ -684,7 +691,8 @@ class CiudadanoController extends BaseController
                                                 'secciones_id' => $seccion->id,
                                                 'pregunta_detalle_id' => $valores
                                             ];
-                                            $respuestaM->insert($data);
+                                            $success = $respuestaM->insert($data);
+                                            
                                             foreach ($detalles->hijos as $key => $hijos) {
                                                 switch ($hijos->tipo_pregunta_id) {
                                                     case 1:
@@ -698,7 +706,8 @@ class CiudadanoController extends BaseController
                                                                 'respuesta' => $value_2,
                                                                 'pregunta_detalle_id' => $hijos->id
                                                             ];
-                                                            $respuestaM->insert($data);
+                                                            $success = $respuestaM->insert($data);
+                                                            
                                                         }
                                                         break;
                                                     case 3:
@@ -711,7 +720,8 @@ class CiudadanoController extends BaseController
                                                                 'secciones_id' => $seccion->id,
                                                                 'pregunta_detalle_id' => $value_2
                                                             ];
-                                                            $respuestaM->insert($data);
+                                                            $success = $respuestaM->insert($data);
+                                                            
                                                         }
                                                         break;
                                                     case 4:
@@ -726,7 +736,8 @@ class CiudadanoController extends BaseController
                                                                         'secciones_id' => $seccion->id,
                                                                         'pregunta_detalle_id' => $check_box
                                                                     ];
-                                                                    $respuestaM->insert($data);
+                                                                    $success = $respuestaM->insert($data);
+                                                                    
                                                                 }
                                                             }
                                                         }
@@ -756,7 +767,8 @@ class CiudadanoController extends BaseController
                                             'secciones_id' => $seccion->id,
                                             'respuesta' => $item->value
                                         ];
-                                        $respuestaM->insert($data);
+                                        $success = $respuestaM->insert($data);
+                                        
                                     }
                                 }
                             }
@@ -787,11 +799,11 @@ class CiudadanoController extends BaseController
                                                 if(unlink('img/files/'.$respuesta[0]->documento)){
                                                     $file->new_name = $name;
                                                     $file->move('img/files', $file->getName());
-                                                    $respuestaM->set(['respuesta' => $name, 'documento' => $file->getName()])->where(['id' => $idRespuesta])->update();
+                                                    $success = $respuestaM->set(['respuesta' => $name, 'documento' => $file->getName()])->where(['id' => $idRespuesta])->update();
                                                 }
                                             }
                                             else{
-                                                $respuestaM->set(['respuesta' => $name])->where(['id' => $idRespuesta])->update();
+                                                $success = $respuestaM->set(['respuesta' => $name])->where(['id' => $idRespuesta])->update();
                                             }
                                             unset($value[$keyRespuesta]);
                                             unset($names[$keyRespuesta]);
@@ -809,7 +821,8 @@ class CiudadanoController extends BaseController
                                             'respuesta' => $archivo->new_name,
                                             'documento' => $archivo->getName()
                                         ];
-                                        $respuestaM->insert($data);
+                                        $success = $respuestaM->insert($data);
+                                        
                                     }
                                 }
                             }
@@ -818,8 +831,28 @@ class CiudadanoController extends BaseController
                 }
             }
         }
+        
+        if($success){
+            $documentoM = new Documento();
+            $documento = $documentoM->select('documento.*, documento_tipo.*')
+            ->join('documento_tipo', 'documento.id_tipo = documento_tipo.id_tipo')
+            ->where(['id_documento' => $id_document])->get()->getResult();
+            $work = new Work();
+            $registro = [
+                'observation' => 'Edición de respuestas',
+                'documento_id_documento' => $id_document,
+                'document' => $documento[0]->abreviacion.$id_document,
+                'users_id' => $documento[0]->help,
+                'work_type_id' => 1
+            ];
+            $exito = $work->insert($registro);
+
+            return var_dump($exito);
+
+        }
+
+
         return redirect()->to(base_url(['cespidh', 'edit', 'document', $id_document]));
-        // return var_dump($formularioB);
     }
     public function historial($id){
         $userM = new User();
@@ -856,7 +889,7 @@ class CiudadanoController extends BaseController
         $documento->set('help', !empty($colaborador) ? $colaborador : 'off');
         $cond = $documento->update();
         if($cond){
-            return "News item created successfully.";
+            return "Creado.";
         }else{
             return "No creado.";
         }

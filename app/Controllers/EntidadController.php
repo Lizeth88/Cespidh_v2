@@ -174,16 +174,50 @@ class EntidadController extends BaseController
 
     public function publicar($id){
         $documento = new Documento();
-        $documento->where('id_documento', $id)
+        $success = $documento->where('id_documento', $id)
                 ->set(['id_estado'=>3])->update();
+        if($success){
+            $documentoM = new Documento();
+            $documento = $documentoM->select('documento.*, documento_tipo.*')
+            ->join('documento_tipo', 'documento.id_tipo = documento_tipo.id_tipo')
+            ->where(['id_documento' => $id])->get()->getResult();
+            $work = new Work();
+            $registro = [
+                'observation' => 'Cambio de estado',
+                'documento_id_documento' => $id,
+                'document' => $documento[0]->abreviacion.$id,
+                'users_id' => $documento[0]->help,
+                'work_type_id' => 1
+            ];
+            $exito = $work->insert($registro);
 
+            return redirect()->to(base_url(['cespidh', 'entidad']));
+
+        }
         return redirect()->to(base_url(['cespidh', 'entidad']));
     }
     public function eliminar($id){
         $documento = new Documento();
-        $documento->where('id_documento', $id)
+        $success = $documento->where('id_documento', $id)
                 ->set(['id_estado'=>4])->update();
+        if($success){
+            $documentoM = new Documento();
+            $documento = $documentoM->select('documento.*, documento_tipo.*')
+            ->join('documento_tipo', 'documento.id_tipo = documento_tipo.id_tipo')
+            ->where(['id_documento' => $id])->get()->getResult();
+            $work = new Work();
+            $registro = [
+                'observation' => 'Cambio de estado',
+                'documento_id_documento' => $id,
+                'document' => $documento[0]->abreviacion.$id,
+                'users_id' => $documento[0]->help,
+                'work_type_id' => 1
+            ];
+            $exito = $work->insert($registro);
 
+            return redirect()->to(base_url(['cespidh', 'entidad']));
+
+        }
         return redirect()->to(base_url(['cespidh', 'entidad']));
     }
 }
