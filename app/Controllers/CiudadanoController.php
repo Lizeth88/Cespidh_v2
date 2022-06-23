@@ -62,6 +62,7 @@ class CiudadanoController extends BaseController
         $requets = $this->request->getPost();
         $id = $this->request->getPost('id');
         $tipo_documento = $this->request->getPost('tipo_documento');
+        $abreviacion = $this->request->getPost('abreviacion');
         $userModel = new User();
         $user = $userModel->where(['id' => $id])->get()->getResult();
         if(empty($user)){ // Creamos nuevo usuario si no existe
@@ -94,8 +95,19 @@ class CiudadanoController extends BaseController
             'help' => !empty($this->request->getPost('help_'.$id_formulario)) ? $this->request->getPost('help_'.$id_formulario) : 'off'
         ];
         // return var_dump($info_document);
-        $documentoModel->insert($info_document);
+        $success = $documentoModel->insert($info_document);
         $id_documento = $documentoModel->getInsertID();
+        if($success){
+            $work = new Work();
+            $registro = [
+                'observation' => 'Creación del documento',
+                'documento_id_documento' => $id_documento,
+                'document' => $abreviacion.$id_documento,
+                'users_id' => $id,
+                'work_type_id' => 1
+            ];
+            $exito = $work->insert($registro);
+        }
         // $id_documento = 1;
         $formularioM = new Formularios();
         $formularioB = $formularioM->where(['id' => $id_formulario])->get()->getResult();

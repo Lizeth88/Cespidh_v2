@@ -353,6 +353,7 @@
                                                         <form method="POST" action="<?= base_url(['cespidh', 'create', 'document']) ?>" enctype="multipart/form-data">
                                                             <input type="hidden" value="<?= $formulario->documento_tipo_id_tipo ?>" name="tipo_documento">
                                                             <input type="hidden" value="<?= $formulario->id ?>" name="id_formulario">
+                                                            <input type="hidden" value="<?= $formulario->abreviacion ?>" name="abreviacion">
                                                             <ul class="stepper linear" id="linearStepper<?= $key ?>">
                                                               <?php foreach($formulario->secciones as $key_2 => $seccion): ?>
                                                                 <li class="step<?= $key_2 == 0 ? ' active': '' ?>">
